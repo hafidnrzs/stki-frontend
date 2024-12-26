@@ -1,0 +1,10 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.rubik-distressed-regular {
+  font-family: "Rubik Distressed", serif;
+  font-weight: 400;
+  font-style: normal;
+}
