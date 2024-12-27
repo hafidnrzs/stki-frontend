@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
@@ -15,8 +16,8 @@ const Navbar = () => {
   return (
     <div className="h-auto w-full bg-[#C9C7C5]">
       {/* Navbar Container */}
-      <div className="navbar w-full font-mulish px-4 sm:px-6 lg:px-12 py-4 ">
-        <div className="flex items-center justify-between w-full ">
+      <div className="navbar w-full font-mulish px-4 sm:px-6 lg:px-12 py-4">
+        <div className="flex items-center justify-between w-full">
           {/* Logo and Search Bar */}
           <div
             className={`flex items-center w-full transition-all duration-300 ${
@@ -32,7 +33,7 @@ const Navbar = () => {
                 <input
                   type="text"
                   placeholder="Apa yang ingin anda baca hari ini?"
-                  className="input input-bordered rounded-3xl w-full"
+                  className="input input-bordered rounded-3xl w-full text-xs lg:text-xl"
                 />
                 <button className="btn btn-active rounded-full shadow-2xl text-white bg-[#BC1529] hover:bg-[#BC1529]">
                   Cari
@@ -66,55 +67,89 @@ const Navbar = () => {
           className="btn w-full rounded-full shadow-2xl text-white bg-[#BC1529] hover:bg-[#BC1529]"
           onClick={toggleDropdown}
         >
-          <div className="text-2xl font-bold">
-            Menu
-          </div>
-          
+          <div className="text-2xl font-bold">Menu</div>
         </button>
 
         {showDropdown && (
           <div className="mt-4 bg-white rounded-lg shadow-lg">
-            <button className="block w-full text-left px-4 py-2 bg-red-600 hover:bg-[#BC1529]">
+            <Link
+              to="/"
+              className="block w-full text-left px-4 py-2 bg-[#BC1529] hover:bg-[#BC1529]"
+            >
               HOME
-            </button>
-            <button className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]">
+            </Link>
+            <Link
+              to="/category/news"
+              className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]"
+            >
               NEWS
-            </button>
-            <button className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]">
+            </Link>
+            <Link
+              to="/category/sport"
+              className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]"
+            >
               SPORT
-            </button>
-            <button className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]">
+            </Link>
+            <Link
+              to="/category/hot"
+              className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]"
+            >
               HOT
-            </button>
-            <button className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]">
+            </Link>
+            <Link
+              to="/category/lifestyle"
+              className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]"
+            >
               LIFESTYLE
-            </button>
-            <button className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]">
+            </Link>
+            <Link
+              to="/category/business"
+              className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]"
+            >
               BUSINESS
-            </button>
+            </Link>
           </div>
         )}
       </div>
 
+      {/* Desktop Menu */}
       <div className="hidden sm:flex flex-wrap justify-center gap-4 px-4 sm:gap-6 lg:gap-12 py-4">
-        <button className="btn rounded-full shadow-2xl w-full sm:w-36 bg-[#BC1529] hover:bg-[#BC1529]">
+        <Link
+          to="/category/home"
+          className="btn rounded-full shadow-2xl w-full sm:w-36 bg-[#BC1529] hover:bg-[#BC1529]"
+        >
           HOME
-        </button>
-        <button className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]">
+        </Link>
+        <Link
+          to="/category/news"
+          className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]"
+        >
           NEWS
-        </button>
-        <button className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]">
+        </Link>
+        <Link
+          to="/category/sport"
+          className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]"
+        >
           SPORT
-        </button>
-        <button className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]">
+        </Link>
+        <Link
+          to="/category/hot"
+          className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]"
+        >
           HOT
-        </button>
-        <button className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]">
+        </Link>
+        <Link
+          to="/category/lifestyle"
+          className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]"
+        >
           LIFESTYLE
-        </button>
-        <button className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]">
+        </Link>
+        <Link
+          to="/category/business"
+          className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]"
+        >
           BUSINESS
-        </button>
+        </Link>
       </div>
     </div>
   );
