@@ -74,22 +74,22 @@ const Navbar = () => {
 
         {showDropdown && (
           <div className="mt-4 bg-white rounded-lg shadow-lg">
-            <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">
+            <button className="block w-full text-left px-4 py-2 bg-red-600 hover:bg-[#BC1529]">
               HOME
             </button>
-            <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">
+            <button className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]">
               NEWS
             </button>
-            <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">
+            <button className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]">
               SPORT
             </button>
-            <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">
+            <button className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]">
               HOT
             </button>
-            <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">
+            <button className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]">
               LIFESTYLE
             </button>
-            <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">
+            <button className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]">
               BUSINESS
             </button>
           </div>
