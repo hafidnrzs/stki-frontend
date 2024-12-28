@@ -5,12 +5,10 @@ import Card from "../components/Card";
 const Home = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const { category } = useParams(); // Menambahkan useParams untuk kategori
-
+  const { category } = useParams(); 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Mengubah URL berdasarkan kategori
         const url = category 
           ? `/api/data/example.json` 
           : "/api/data/example.json"; 
@@ -55,6 +53,7 @@ const Home = () => {
               id={item.id}
               title={item.title}
               image={item.image}
+              summary={item.summary}
             />
           ))}
         </div>
