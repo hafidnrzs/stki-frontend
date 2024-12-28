@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const location = useLocation();
 
   const toggleSearch = () => {
     setShowSearch(!showSearch);
@@ -12,6 +13,8 @@ const Navbar = () => {
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div className="h-auto w-full bg-[#C9C7C5]">
@@ -24,7 +27,7 @@ const Navbar = () => {
               showSearch ? "gap-4" : "justify-between"
             }`}
           >
-            <a className="btn btn-ghost text-2xl sm:text-4xl text-red-500">
+            <a className="btn btn-ghost text-2xl sm:text-4xl  bg-gradient-to-b from-[#4C32EF] to-[#A50C30] bg-clip-text text-transparent">
               Beritaku
             </a>
 
@@ -34,8 +37,14 @@ const Navbar = () => {
                   type="text"
                   placeholder="Apa yang ingin anda baca hari ini?"
                   className="input input-bordered rounded-3xl w-full text-xs lg:text-xl"
+                  data-aos="fade-left"
+                  data-aos-duration="2000"
                 />
-                <button className="btn btn-active rounded-full shadow-2xl text-white bg-[#BC1529] hover:bg-[#BC1529]">
+                <button
+                  className="btn btn-active rounded-full shadow-2xl text-white bg-[#BC1529] hover:bg-[#BC1529]"
+                  data-aos="fade-left"
+                  data-aos-duration="3000"
+                  >
                   Cari
                 </button>
               </div>
@@ -72,84 +81,50 @@ const Navbar = () => {
 
         {showDropdown && (
           <div className="mt-4 bg-white rounded-lg shadow-lg">
-            <Link
-              to="/"
-              className="block w-full text-left px-4 py-2 bg-[#BC1529] hover:bg-[#BC1529]"
-            >
-              HOME
-            </Link>
-            <Link
-              to="/category/news"
-              className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]"
-            >
-              NEWS
-            </Link>
-            <Link
-              to="/category/sport"
-              className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]"
-            >
-              SPORT
-            </Link>
-            <Link
-              to="/category/hot"
-              className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]"
-            >
-              HOT
-            </Link>
-            <Link
-              to="/category/lifestyle"
-              className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]"
-            >
-              LIFESTYLE
-            </Link>
-            <Link
-              to="/category/business"
-              className="block w-full text-left px-4 py-2 hover:bg-[#BC1529]"
-            >
-              BUSINESS
-            </Link>
+            {[
+              "/category/home",
+              "/category/news",
+              "/category/sport",
+              "/category/hot",
+              "/category/lifestyle",
+              "/category/business",
+            ].map((path, index) => (
+              <Link
+                key={index}
+                to={path}
+                className={`block w-full text-left px-4 py-2 ${
+                  isActive(path)
+                    ? "bg-[#BC1529] text-white"
+                    : "hover:bg-[#BC1529] "
+                } shadow-purple-600`}
+              >
+                {path === "/" ? "HOME" : path.split("/")[2].toUpperCase()}
+              </Link>
+            ))}
           </div>
         )}
       </div>
 
       {/* Desktop Menu */}
-      <div className="hidden sm:flex flex-wrap justify-center gap-4 px-4 sm:gap-6 lg:gap-12 py-4">
-        <Link
-          to="/category/home"
-          className="btn rounded-full shadow-2xl w-full sm:w-36 bg-[#BC1529] hover:bg-[#BC1529]"
-        >
-          HOME
-        </Link>
-        <Link
-          to="/category/news"
-          className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]"
-        >
-          NEWS
-        </Link>
-        <Link
-          to="/category/sport"
-          className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]"
-        >
-          SPORT
-        </Link>
-        <Link
-          to="/category/hot"
-          className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]"
-        >
-          HOT
-        </Link>
-        <Link
-          to="/category/lifestyle"
-          className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]"
-        >
-          LIFESTYLE
-        </Link>
-        <Link
-          to="/category/business"
-          className="btn rounded-full shadow-2xl w-full sm:w-36 hover:bg-[#BC1529]"
-        >
-          BUSINESS
-        </Link>
+      <div className="hidden sm:flex flex-wrap justify-center gap-4 px-4 sm:gap-6 lg:gap-12 py-4 shadow-lg">
+        {[
+          { path: "/category/home", label: "HOME" },
+          { path: "/category/news", label: "NEWS" },
+          { path: "/category/sport", label: "SPORT" },
+          { path: "/category/hot", label: "HOT" },
+          { path: "/category/lifestyle", label: "LIFESTYLE" },
+          { path: "/category/business", label: "BUSINESS" },
+        ].map(({ path, label }, index) => (
+          <Link
+            key={index}
+            to={path}
+            className={`btn rounded-full w-full sm:w-36 ${
+              isActive(path) ? "bg-[#BC1529] " : "hover:bg-[#BC1529] "
+            } shadow-purple-700`}
+          >
+            {label}
+          </Link>
+        ))}
       </div>
     </div>
   );
