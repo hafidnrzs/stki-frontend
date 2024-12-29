@@ -42,7 +42,7 @@ const Home = () => {
 
   return (
     <div className="flex items-start mt-7 lg:mt-10 lg:ml-3 font-mulish">
-      <div className="ml-4 lg:ml-8 lg:w-full">
+      <div className="ml-1 lg:ml-8 lg:w-full">
         <div className="font-bold text-[#F60E2A] text-xl lg:text-3xl mb-4">
           Berita Lainnya
         </div>
@@ -54,7 +54,6 @@ const Home = () => {
               id={item.id}
               title={item.title}
               image={item.image}
-              
               // summary={item.summary}
             />
           ))}

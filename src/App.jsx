@@ -19,18 +19,20 @@ function App() {
   }, []);
   return (
     <>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/category/home" element={<Home />} />
-          <Route path="/category/news" element={<News />} />
-          <Route path="/category/hot" element={<Hot />} />
-          <Route path="/category/sport" element={<Sport />} />
-          <Route path="/category/lifestyle" element={<Lifestyle />} />
-          <Route path="/category/business" element={<Business />} />
-        </Routes>
-      </Router>
+      <div className="font-mulish">
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/category/home" element={<Home />} />
+            <Route path="/category/news" element={<News />} />
+            <Route path="/category/hot" element={<Hot />} />
+            <Route path="/category/sport" element={<Sport />} />
+            <Route path="/category/lifestyle" element={<Lifestyle />} />
+            <Route path="/category/business" element={<Business />} />
+          </Routes>
+        </Router>
+      </div>
     </>
   );
 }
