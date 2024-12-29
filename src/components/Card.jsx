@@ -18,8 +18,8 @@ const Card = ({ id, title, image, summary }) => {
           <h2 className="card-title font-medium text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl">
             {title}
           </h2>
-          <p className="mt-2 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-gray-700 lg:text-gray-200">
-            {summary}
+          <p className="mt-2 text-red-600 text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl">
+            HOT
           </p>
         </div>
       </div>
