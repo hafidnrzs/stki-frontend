@@ -2,31 +2,24 @@ import Card from "../components/Card";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PreviewArticle_Card from "../components/PreviewArticle_Card";
+import axios from "axios";
 
 const Hot = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const { category } = useParams();
   useEffect(() => {
     const fetchData = async () => {
       try {
         const url = category
-          ? `/api/data/example.json`
-          : "/api/data/example.json";
+          ? `${import.meta.env.VITE_API_URL}?category=${category}&page=1`
+          : `${import.meta.env.VITE_API_URL}?page=1`;
 
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const text = await response.text();
-        console.log("Raw response:", text);
-
-        const jsonData = JSON.parse(text);
-        setData(jsonData);
+        const response = await axios.get(url); 
+        setData(response.data.news); 
       } catch (err) {
         console.error("Error fetching data:", err);
-        setError(err.message);
+        setError(err.message || "An error occurred");
       }
     };
 
@@ -34,10 +27,10 @@ const Hot = () => {
   }, [category]);
 
   if (error) {
-    return <div>Error fetching data: {error}</div>;
+    return <div className="text-red-500">Error fetching data: {error}</div>;
   }
 
-  if (!data) {
+  if (!data.length) {
     return <div>Loading...</div>;
   }
   return (
