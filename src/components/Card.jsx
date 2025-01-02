@@ -1,4 +1,4 @@
-const Card = ({ id, title, image, summary }) => {
+const Card = ({ id, title, image, summary,category }) => {
   return (
     <div
       id={id}
@@ -16,7 +16,7 @@ const Card = ({ id, title, image, summary }) => {
           {title}
         </h2>
         <p className="mt-2 text-red-600 text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl">
-          HOT
+          {category}
         </p>
        
       </div>

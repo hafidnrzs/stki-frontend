@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from "../components/Card";
-import axios from "axios";
+import fetchData from "../api/News";
 
 const Home = () => {
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(1); // State untuk pagination
   const [error, setError] = useState(null);
   const { category } = useParams();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = category
-          ? `${import.meta.env.VITE_API_URL}?category=${category}&page=1`
-          : `${import.meta.env.VITE_API_URL}?page=1`;
-
-        const response = await axios.get(url); 
-        setData(response.data.news); 
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError(err.message || "An error occurred");
+    const getData = async () => {
+      const { data, error } = await fetchData({ category, page });
+      if (error) {
+        setError(error);
+      } else {
+        setData(data);
       }
     };
 
-    fetchData();
-  }, [category]);
+    getData();
+  }, [category, page]);
 
   if (error) {
     return <div className="text-red-500">Error fetching data: {error}</div>;
@@ -35,8 +31,8 @@ const Home = () => {
   }
 
   return (
-    <div className="flex items-start mt-7 lg:mt-10 lg:ml-3 font-mulish">
-      <div className="max-w-screen-xl mx-auto w-full px-4 lg:px-8">
+    <div className="flex items-start lg:ml-3 font-mulish">
+      <div className="max-w-screen-xl mt-2 mx-auto w-full px-4 lg:px-8">
         <div className="font-black text-[#F60E2A] text-xl lg:text-2xl mb-4">
           BERITA LAINNYA
         </div>

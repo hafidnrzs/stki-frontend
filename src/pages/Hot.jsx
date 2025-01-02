@@ -1,31 +1,27 @@
-import Card from "../components/Card";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Card from "../components/Card";
 import PreviewArticle_Card from "../components/PreviewArticle_Card";
-import axios from "axios";
+import fetchData from "../api/News";
 
 const Hot = () => {
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(1); // State untuk pagination
   const [error, setError] = useState(null);
   const { category } = useParams();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = category
-          ? `${import.meta.env.VITE_API_URL}?category=${category}&page=1`
-          : `${import.meta.env.VITE_API_URL}?page=1`;
-
-        const response = await axios.get(url); 
-        setData(response.data.news); 
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError(err.message || "An error occurred");
+    const getData = async () => {
+      const { data, error } = await fetchData({ category, page });
+      if (error) {
+        setError(error);
+      } else {
+        setData(data);
       }
     };
 
-    fetchData();
-  }, [category]);
+    getData();
+  }, [category, page]);
 
   if (error) {
     return <div className="text-red-500">Error fetching data: {error}</div>;
@@ -41,17 +37,19 @@ const Hot = () => {
         <div className="text-[#F60E2A] text-xl xl:text-2xl font-black mt-2 ml-2">
           PALING HOT MINGGU INI
         </div>
+        {/* Display news cards */}
         <div className="ml-1 grid grid-cols-2 gap-4 pb-4 md:ml-3 lg:pb-0 lg:grid-cols-4 mt-4">
           {data.map((item, index) => (
             <Card
-              key={index}
+              key={item.id || index} // Fallback to index as key if 'id' is not available
               id={item.id}
               title={item.title}
               image={item.image}
-              // summary={item.summary}
+              // summary={item.summary} // Uncomment if summary is available
             />
           ))}
         </div>
+        {/* Preview article section */}
         <div className="text-[#F60E2A] text-xl xl:text-2xl font-black mt-2 ml-2">
           PREVIEW ARTIKEL
         </div>
