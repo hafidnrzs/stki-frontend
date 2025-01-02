@@ -1,35 +1,57 @@
 import React from "react";
 
-const PreviewArticle_Card = ({ id, image, title, tempo, date, summary }) => {
+const PreviewArticle_Card = ({
+  id,
+  image,
+  title,
+  summary,
+  date,
+  content,
+  url,
+}) => {
   return (
     <>
       <div
         id={id}
-        className="card ml-2 w-96 sm:w-60 md:w-80 lg:w-60 xl:w-72 2xl:w-1/4 bg-white transition-all duration-300"
-        // data-aos="fade-up"
-        // data-aos-duration="2000"
+        className="card sm:w-60 md:w-full lg:w-full xl:w-full bg-white px-2 md:mt-4 transition-all duration-300"
       >
         <div className="text-left bg-transparent mt-1">
-          <h2 className="card-title font-bold text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl">
+          <h2 className="card-title font-extrabold text-lg md:text-2xl lg:text-xl xl:text-4xl">
             {title}
           </h2>
-          <p className="card-tempo text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl">
-            {tempo}
+          <p className="card-summary text-base mt-2 md:text-xl lg:text-lg xl:text-2xl">
+            {summary}
           </p>
-          <p className="card-date text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl">
+          <p className="card-date text-xs mt-2 mb-2 md:text-lg lg:text-lg xl:text-xl">
             {date}
           </p>
         </div>
-        <figure className="pr-16">
+        <figure className="flex justify-center w-full h-full md:h-96 xl:h-full">
           <img
             src={image}
             alt={title}
-            className="rounded-3xl sm:h-40 md:h-48 lg:h-56 xl:w-72 w-80 object-cover"
+            className="rounded-3xl w-full h-full object-contain md:object-cover"
           />
         </figure>
-        <div className="text-left bg-transparent p-1 ">
-          <p className="card-summary text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl">
-            {summary}
+        <div className="text-left bg-transparent p-1">
+          {content.map((paragraph, index) => (
+            <p
+              key={index}
+              className="card-summary text-base sm:text-sm md:text-xl lg:text-lg xl:text-2xl text-justify mb-4"
+            >
+              {paragraph}
+            </p>
+          ))}
+          <p className=" text-base md:text-xl xl:text-2xl">
+            Source:{" "}
+            <a
+              href={url}
+              className="text-blue-500 underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Sumber Berita
+            </a>
           </p>
         </div>
       </div>

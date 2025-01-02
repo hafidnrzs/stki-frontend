@@ -6,6 +6,7 @@ const Home = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const { category } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,9 +43,9 @@ const Home = () => {
 
   return (
     <div className="flex items-start mt-7 lg:mt-10 lg:ml-3 font-mulish">
-      <div className="ml-1 lg:ml-8 lg:w-full">
-        <div className="font-bold text-[#F60E2A] text-xl lg:text-3xl mb-4">
-          Berita Lainnya
+      <div className="max-w-screen-xl mx-auto w-full px-4 lg:px-8">
+        <div className="font-black text-[#F60E2A] text-xl lg:text-2xl mb-4">
+          BERITA LAINNYA
         </div>
         {/* Grid container for cards */}
         <div className="grid grid-cols-2 gap-4 pb-4 lg:pb-0 lg:grid-cols-4 mt-4">
