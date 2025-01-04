@@ -35,7 +35,7 @@ export default function NewsDetails() {
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full max-w-screen-xl mx-auto">
         <button className="btn border-none" onClick={() => navigator("/")}><BiArrowBack size={50} /></button>
         <PreviewArticle_Card id={news.id} image={news.image} title={news.title} summary={news.summary} date={news.date} content={news.content} url={news.url}/>
       </div>
