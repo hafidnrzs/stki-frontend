@@ -5,7 +5,7 @@ import fetchData from "../api/News";
 import axios from "axios";
 
 
-const Hukum = ({category}) => {
+const Internasional = ({category}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
@@ -37,7 +37,7 @@ const Hukum = ({category}) => {
     <div className="flex items-start lg:ml-3 font-mulish">
       <div className="max-w-screen-xl mt-2 mx-auto w-full px-4 lg:px-8">
         <div className="font-black text-[#F60E2A] text-xl lg:text-2xl mb-4">
-          BERITA HUKUM
+          BERITA INTERNASIONAL
         </div>
         {/* Grid container for cards */}
         <div className="grid grid-cols-2 gap-4 pb-4 lg:pb-0 lg:grid-cols-4 mt-4">
@@ -59,4 +59,4 @@ const Hukum = ({category}) => {
   );
 };
 
-export default Hukum;
+export default Internasional;

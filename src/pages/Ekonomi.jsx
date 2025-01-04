@@ -36,15 +36,18 @@ const Ekonomi = () => {
       <div className="max-w-screen-xl mx-auto w-full px-4 lg:px-8">
         {/* Display news cards */}
         <div className="ml-1 grid grid-cols-2 gap-4 pb-4 md:ml-3 lg:pb-0 lg:grid-cols-4 mt-4">
-          {data.map((item, index) => (
-            <Card
-              key={item.id || index} // Fallback to index as key if 'id' is not available
-              id={item.id}
-              title={item.title}
-              image={item.image}
-              // summary={item.summary} // Uncomment if summary is available
-            />
-          ))}
+          {Array.isArray(data) && data.length > 0 ? (
+            data.map((item) => (
+              <Card
+                key={item.id} // Pastikan ada key unik
+                title={item.title}
+                image={item.image}
+                category={item.category}
+              />
+            ))
+          ) : (
+            <div>No data available</div>
+          )}
         </div>
         {/* Preview article section */}
         <div className="text-[#F60E2A] text-xl xl:text-2xl font-black mt-2 ml-2">
