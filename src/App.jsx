@@ -11,6 +11,7 @@ import Business from "./pages/Business";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import Category from "./pages/Category";
 
 function App() {
   useEffect(() => {
@@ -24,12 +25,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/category/home" element={<Home />} />
-            <Route path="/category/news" element={<News />} />
-            <Route path="/category/hot" element={<Hot />} />
-            <Route path="/category/sport" element={<Sport />} />
-            <Route path="/category/lifestyle" element={<Lifestyle />} />
-            <Route path="/category/business" element={<Business />} />
+            <Route path="/category/:category" element={<Category />} />
           </Routes>
         </Router>
       </div>
