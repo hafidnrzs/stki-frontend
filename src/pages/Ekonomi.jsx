@@ -34,7 +34,9 @@ const Ekonomi = () => {
   return (
     <div className="w-full">
       <div className="max-w-screen-xl mx-auto w-full px-4 lg:px-8">
-        {/* Display news cards */}
+      <div className="font-black text-[#F60E2A] text-xl lg:text-2xl mb-4">
+          BERITA EKONOMI
+        </div>
         <div className="ml-1 grid grid-cols-2 gap-4 pb-4 md:ml-3 lg:pb-0 lg:grid-cols-4 mt-4">
           {Array.isArray(data) && data.length > 0 ? (
             data.map((item) => (

@@ -53,8 +53,8 @@ const News = ({ category }) => {
   return (
     <div className="w-full h-full font-mulish">
       <div className="max-w-screen-xl mx-auto">
-        <div className="ml-3 text-xl font-bold text-[#F60E2A] mt-3">
-          TOPIK TERBARU
+      <div className="font-black text-[#F60E2A] text-xl lg:text-2xl mb-4 lg:mt-2 lg:ml-3">
+          BERITA TERBARU
         </div>
         {/* Grid untuk kartu */}
         <div className="ml-3 grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
