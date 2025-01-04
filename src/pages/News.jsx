@@ -15,7 +15,7 @@ const News = ({ category }) => {
           : `${import.meta.env.VITE_API_URL}?page=1`;
 
         const response = await axios.get(url);
-        const news = response.data || [];
+        const news = await response.data?.news;
         setData(news);
         console.log(category);
       } catch (err) {
@@ -24,14 +24,12 @@ const News = ({ category }) => {
       }
     };
 
-
     fetchData();
   }, [category]);
 
   if (error) {
     return <div className="text-red-500">Error fetching data: {error}</div>;
   }
-  console.log(data);
 
   return (
     <div className="w-full h-full font-mulish">
@@ -51,10 +49,10 @@ const News = ({ category }) => {
         {Array.isArray(data) && data.length > 0 ? (
           data.map((item) => (
             <Card
-              key={item.news[0].id} // Pastikan ada key unik
-              title={item.news[0].title}
-              image={item.news[0].image}
-              category={item.news[0].category}
+              key={item.id} // Pastikan ada key unik
+              title={item.title}
+              image={item.image}
+              category={item.category}
             />
           ))
         ) : (
