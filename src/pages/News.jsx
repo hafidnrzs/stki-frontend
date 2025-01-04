@@ -33,31 +33,40 @@ const News = ({ category }) => {
 
   return (
     <div className="w-full h-full font-mulish">
-      <div className=" ml-3 text-xl font-bold text-[#F60E2A] mt-3">
-        TOPIK POPULER
-      </div>
-      {/* Grid untuk kartu */}
-      <div className="ml-3 grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
-        <TopicPopuler_Card title="#Beritaku 1" />
-        <TopicPopuler_Card title="#Beritaku 2" />
-        <TopicPopuler_Card title="#Beritaku 3" />
-        <TopicPopuler_Card title="#Beritaku 4" />
-      </div>
-      <div className="ml-3 text-xl font-bold text-[#F60E2A] mt-3">NEWS</div>
-      {/* Grid container for cards */}
-      <div className="ml-1 grid grid-cols-2 gap-4 pb-4  md:ml-3 lg:pb-0 lg:grid-cols-4 mt-4">
+      <div className="max-w-screen-xl mx-auto">
+        <div className="ml-3 text-xl font-bold text-[#F60E2A] mt-3">
+          TOPIK POPULER
+        </div>
+        {/* Grid untuk kartu */}
+        <div className="ml-3 grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
         {Array.isArray(data) && data.length > 0 ? (
-          data.map((item) => (
-            <Card
-              key={item.id} // Pastikan ada key unik
-              title={item.title}
-              image={item.image}
-              category={item.category}
-            />
-          ))
-        ) : (
-          <div>No data available</div>
-        )}
+            data.map((item) => (
+              <TopicPopuler_Card
+                key={item.id} // Pastikan ada key unik
+                title={item.title}
+                image={item.image}
+                category={item.category}
+              />
+            ))
+          ) : (
+            <div>No data available</div>
+          )}
+        </div>
+        {/* Grid container for cards */}
+        <div className="ml-1 grid grid-cols-2 gap-4 pb-4 md:ml-3 lg:pb-0 lg:grid-cols-4 mt-4">
+          {Array.isArray(data) && data.length > 0 ? (
+            data.map((item) => (
+              <Card
+                key={item.id} // Pastikan ada key unik
+                title={item.title}
+                image={item.image}
+                category={item.category}
+              />
+            ))
+          ) : (
+            <div>No data available</div>
+          )}
+        </div>
       </div>
     </div>
   );
