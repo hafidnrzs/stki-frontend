@@ -2,7 +2,7 @@ const TopicPopuler_Card = ({ title, category,image }) => {
   return (
     <>
       <div className="bg-transparent flex flex-col mb-4">
-        <div className="text-xl md:text-2xl lg:text-3xl font-bold">{title}</div>
+        <div className="text-lg md:text-2xl lg:text-3xl font-bold">{title}</div>
         <div className="bg-transparent flex mt-2">
           <img
             src={image}
