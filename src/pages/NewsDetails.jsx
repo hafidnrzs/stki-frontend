@@ -15,7 +15,7 @@ export default function NewsDetails() {
     const fetchNewsDetails = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/${id}`
+          `${import.meta.env.VITE_API_URL}/news/${id}`
         );
         const news = await response.data;
 
