@@ -77,6 +77,7 @@ const News = ({ category }) => {
             data.map((item) => (
               <Card
                 key={item.id} // Pastikan ada key unik
+                url={`/news/${item.id}`}
                 title={item.title}
                 image={item.image}
                 category={item.category}

@@ -7,6 +7,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import Category from "./pages/Category";
+import NewsDetails from "./pages/NewsDetails";
 
 function App() {
   useEffect(() => {
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<News />} />
             <Route path="/category/:category" element={<Category />} />
+            <Route path="/news/:id" element={<NewsDetails />} />
           </Routes>
         </Router>
       </div>
