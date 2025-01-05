@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const [keyword, setKeyword] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [search, setSearch] = useState("");
@@ -19,17 +20,17 @@ const Navbar = () => {
     setShowDropdown(!showDropdown);
   };
 
-  const handleSearchButton = async () => {
+  const handleSearchChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/search?q=${search}`
+        `${import.meta.env.VITE_API_URL}/search?q=${keyword}`
       );
-      const results = await response.data?.news;
-
-      setData(results);
-
-      // Navigasi ke SearchPages dengan data hasil pencarian
-      navigate("/search", { state: { results } });
+      console.log(response.data);
     } catch (err) {
       console.error(err);
     }
@@ -167,24 +168,28 @@ const Navbar = () => {
               </a>
 
               {showSearch && (
-                <div className="flex items-center flex-grow gap-4">
+                <form
+                  onSubmit={handleSearchSubmit}
+                  className="flex items-center flex-grow gap-4"
+                >
                   <input
                     type="text"
                     placeholder="Apa yang ingin anda baca hari ini?"
                     className="input input-bordered rounded-3xl w-full text-xs lg:text-xl"
-                    onChange={(e) => setSearch(e.target.value)}
+                    value={keyword}
+                    onChange={handleSearchChange}
                     data-aos="fade-left"
                     data-aos-duration="2000"
                   />
                   <button
+                    type="submit"
                     className="btn btn-active rounded-full shadow-2xl text-white bg-[#BC1529] hover:bg-[#BC1529]"
                     data-aos="fade-left"
                     data-aos-duration="3000"
-                    onClick={handleSearchButton}
                   >
                     Cari
                   </button>
-                </div>
+                </form>
               )}
             </div>
             {!showSearch && (
