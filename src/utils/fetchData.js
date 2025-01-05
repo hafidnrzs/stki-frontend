@@ -8,7 +8,7 @@ const fetchData = async ({ category, page }) => {
             : `${API_URL}/news?page=${page}`;
 
         const response = await axios.get(url);
-        return { data: response.data.news, error: null };
+        return { data: response.data.news, total_pages: response.data.total_pages, error: null };
     } catch (err) {
         return { data: null, error: err.message || "An error occurred" };
     }

@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import axios from "axios";
+import Pagination from "../components/Pagination";
 import Loader from "../components/Loader"; // Import the Loader component
+import { useLocation, useNavigate } from "react-router-dom"; // Import useLocation and useNavigate
 
 const Hukum = ({ category }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false); // Add loading state
+  const [totalPages, setTotalPages] = useState(1);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const page = parseInt(queryParams.get("page")) || 1;
+    setCurrentPage(page);
+  }, [location.search]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +33,7 @@ const Hukum = ({ category }) => {
         const response = await axios.get(url);
         const news = await response.data?.news;
         setData(news);
+        setTotalPages(response.data?.total_pages || 1);
         console.log(category);
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -33,13 +45,13 @@ const Hukum = ({ category }) => {
     fetchData();
   }, [category, currentPage]);
 
+  const handlePageChange = (page) => {
+    navigate(`?page=${page}`);
+  };
+
   if (error) {
     return <div className="text-red-500">Error fetching data: {error}</div>;
   }
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
 
   return (
     <div className="flex items-start lg:ml-3 font-mulish">
@@ -66,23 +78,11 @@ const Hukum = ({ category }) => {
                 <div>No data available</div>
               )}
             </div>
-            <div className="flex justify-center items-center gap-5 sm:mb-5 xl:mb-2">
-              <div className="join">
-                {[1, 2, 3, 4].map((page) => (
-                  <input
-                    key={page}
-                    className={`join-item btn btn-square hover:bg-[#C9C7C5] ${
-                      currentPage === page ? "bg-[#C9C7C5]" : "bg-white"
-                    }`}
-                    type="button"
-                    name="options"
-                    aria-label={page}
-                    value={page}
-                    onClick={() => handlePageChange(page)}
-                  />
-                ))}
-              </div>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages} // Use totalPages from state
+              onPageChange={handlePageChange}
+            />
           </>
         )}
       </div>

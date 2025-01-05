@@ -2,14 +2,25 @@ import axios from "axios";
 import Card from "../components/Card";
 import TopicPopuler_Card from "../components/TopicPopuler_Card";
 import React, { useEffect, useState } from "react";
+import Pagination from "../components/Pagination";
 import Loader from "../components/Loader"; // Import the Loader component
+import { useLocation, useNavigate } from "react-router-dom"; // Import useLocation and useNavigate
 
 const News = ({ category }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [popularData, setPopular] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1); // State untuk melacak halaman saat ini
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false); // Add loading state
+  const [totalPages, setTotalPages] = useState(1);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const page = parseInt(queryParams.get("page")) || 1;
+    setCurrentPage(page);
+  }, [location.search]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +35,7 @@ const News = ({ category }) => {
         const response = await axios.get(url);
         const news = await response.data?.news;
         setData(news);
+        setTotalPages(response.data?.total_pages || 1);
         console.log(category);
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -33,7 +45,6 @@ const News = ({ category }) => {
     };
 
     const fetchPopularData = async () => {
-      setLoading(true); // Set loading to true before fetching data
       try {
         const url = category
           ? `${
@@ -49,20 +60,19 @@ const News = ({ category }) => {
         console.error("Error fetching data:", err);
         setError(err.message || "An error occurred");
       }
-      setLoading(false); // Set loading to false after fetching data
     };
 
     fetchData();
     fetchPopularData();
-  }, [category, currentPage]); // Menambahkan currentPage ke dependencies
+  }, [category, currentPage]);
+
+  const handlePageChange = (page) => {
+    navigate(`?page=${page}`);
+  };
 
   if (error) {
     return <div className="text-red-500">Error fetching data: {error}</div>;
   }
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
 
   return (
     <div className="w-full h-full font-mulish">
@@ -77,14 +87,16 @@ const News = ({ category }) => {
             {/* Grid untuk kartu */}
             <div className="ml-3 grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
               {Array.isArray(popularData) && popularData.length > 0 ? (
-                popularData.slice(0, 4).map((item) => (
-                  <TopicPopuler_Card
-                    key={item.id} // Pastikan ada key unik
-                    title={item.title}
-                    image={item.image}
-                    category={item.category}
-                  />
-                ))
+                popularData
+                  .slice(0, 4)
+                  .map((item) => (
+                    <TopicPopuler_Card
+                      key={item.id}
+                      title={item.title}
+                      image={item.image}
+                      category={item.category}
+                    />
+                  ))
               ) : (
                 <div>No data available</div>
               )}
@@ -94,7 +106,7 @@ const News = ({ category }) => {
               {Array.isArray(data) && data.length > 0 ? (
                 data.map((item) => (
                   <Card
-                    key={item.id} // Pastikan ada key unik
+                    key={item.id}
                     url={`/news/${item.id}`}
                     title={item.title}
                     image={item.image}
@@ -105,23 +117,11 @@ const News = ({ category }) => {
                 <div>No data available</div>
               )}
             </div>
-            <div className="flex justify-center items-center gap-5 sm:mb-5 xl:mb-2">
-              <div className="join">
-                {[1, 2, 3, 4].map((page) => (
-                  <input
-                    key={page}
-                    className={`join-item btn btn-square hover:bg-red-600 ${
-                      currentPage === page ? "btn-active" : "bg-[#C9C7C5]"
-                    }`}
-                    type="button"
-                    name="options"
-                    aria-label={page}
-                    value={page}
-                    onClick={() => handlePageChange(page)}
-                  />
-                ))}
-              </div>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages} // Use totalPages from state
+              onPageChange={handlePageChange}
+            />
           </>
         )}
       </div>
