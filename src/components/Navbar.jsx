@@ -26,14 +26,7 @@ const Navbar = () => {
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/search?q=${keyword}`
-      );
-      console.log(response.data);
-    } catch (err) {
-      console.error(err);
-    }
+    navigate("/search", { state: { keyword } });
   };
 
   const isActive = (path) => location.pathname === path;
