@@ -25,21 +25,20 @@ const Navbar = () => {
         `${import.meta.env.VITE_API_URL}/search?q=${search}`
       );
       const results = await response.data?.news;
-  
+
       setData(results);
-  
+
       // Navigasi ke SearchPages dengan data hasil pencarian
       navigate("/search", { state: { results } });
     } catch (err) {
       console.error(err);
     }
   };
-  console.log(data);
 
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="w-full bg-[#C9C7C5]">
+    <div className="w-full bg-[#C9C7C5] mb-6">
       <div className="h-auto max-w-screen-xl mx-auto shadow-none">
         {/* Navbar Container */}
         <div className="navbar w-full font-mulish px-4 sm:px-6 lg:px-12 py-4">
