@@ -9,15 +9,20 @@ const News = ({ category }) => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false); // Add loading state
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const getData = async () => {
       setLoading(true); // Set loading to true before fetching data
-      const { data, error } = await fetchData({ category, page: currentPage });
+      const { data, error, total_pages } = await fetchData({
+        category,
+        page: currentPage,
+      });
       if (error) {
         setError(error);
       } else {
         setData(data);
+        setTotalPages(total_pages);
       }
       setLoading(false); // Set loading to false after fetching data
     };
@@ -53,7 +58,7 @@ const News = ({ category }) => {
             </div>
             <Pagination
               currentPage={currentPage}
-              totalPages={4} // Sesuaikan dengan total halaman yang ada
+              totalPages={totalPages} // Use totalPages from state
               onPageChange={setCurrentPage}
             />
           </>
