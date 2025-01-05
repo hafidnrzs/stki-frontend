@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import fetchData from "../api/News";
 import Card from "../components/Card";
 import Pagination from "../components/Pagination";
@@ -10,11 +11,19 @@ const News = ({ category }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false); // Add loading state
   const [totalPages, setTotalPages] = useState(1);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const page = parseInt(queryParams.get("page")) || 1;
+    setCurrentPage(page);
+  }, [location.search]);
 
   useEffect(() => {
     const getData = async () => {
       setLoading(true); // Set loading to true before fetching data
-      const { data, error, total_pages } = await fetchData({
+      const { data, total_pages, error } = await fetchData({
         category,
         page: currentPage,
       });
@@ -23,12 +32,17 @@ const News = ({ category }) => {
       } else {
         setData(data);
         setTotalPages(total_pages);
+        console.log("Total hlm: " + total_pages);
       }
       setLoading(false); // Set loading to false after fetching data
     };
 
     getData();
   }, [category, currentPage]);
+
+  const handlePageChange = (page) => {
+    navigate(`?page=${page}`);
+  };
 
   if (error) {
     return <div className="text-red-500">Error fetching data: {error}</div>;
@@ -59,7 +73,7 @@ const News = ({ category }) => {
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages} // Use totalPages from state
-              onPageChange={setCurrentPage}
+              onPageChange={handlePageChange}
             />
           </>
         )}
