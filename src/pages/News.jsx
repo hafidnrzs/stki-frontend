@@ -27,13 +27,13 @@ const News = ({ category }) => {
 
   return (
     <div className="w-full h-full font-mulish">
-      <div className="max-w-screen-xl mx-auto">
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Render data */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.map((item) => (
             <Card
               key={item.id}
-              id={item.id} // Pastikan item memiliki properti id
+              id={item.id}
               title={item.title}
               image={item.image}
               category={item.category}
