@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Card from "../components/Card";
-import fetchData from "../api/News";
 import axios from "axios";
 
-
-const Keuangan = ({category}) => {
+const Keuangan = ({ category }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const url = category
-          ? `${import.meta.env.VITE_API_URL}/news?category=${category}&page=1`
-          : `${import.meta.env.VITE_API_URL}/news?page=1`;
+          ? `${
+              import.meta.env.VITE_API_URL
+            }/news?category=${category}&page=${currentPage}`
+          : `${import.meta.env.VITE_API_URL}/news?page=${currentPage}`;
 
         const response = await axios.get(url);
         const news = await response.data?.news;
@@ -27,11 +27,15 @@ const Keuangan = ({category}) => {
     };
 
     fetchData();
-  }, [category]);
+  }, [category, currentPage]);
 
   if (error) {
     return <div className="text-red-500">Error fetching data: {error}</div>;
   }
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="flex items-start lg:ml-3 font-mulish">
@@ -54,30 +58,23 @@ const Keuangan = ({category}) => {
             <div>No data available</div>
           )}
         </div>
-        <div className="flex justify-center items-center gap-5 sm:mb-5 xl:mb-2">
-          <button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              fill="#000000"
-              viewBox="0 0 256 256"
-            >
-              <path d="M199.81,34a16,16,0,0,0-16.24.43L64,109.23V40a8,8,0,0,0-16,0V216a8,8,0,0,0,16,0V146.77l119.57,74.78A15.95,15.95,0,0,0,208,208.12V47.88A15.86,15.86,0,0,0,199.81,34ZM192,208,64.16,128,192,48.07Z"></path>
-            </svg>
-          </button>
 
-          <button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              fill="#000000"
-              viewBox="0 0 256 256"
-            >
-              <path d="M200,32a8,8,0,0,0-8,8v69.23L72.43,34.45A15.95,15.95,0,0,0,48,47.88V208.12a16,16,0,0,0,24.43,13.43L192,146.77V216a8,8,0,0,0,16,0V40A8,8,0,0,0,200,32ZM64,207.93V48.05l127.84,80Z"></path>
-            </svg>
-          </button>
+        <div className="flex justify-center items-center gap-5 sm:mb-5 xl:mb-2">
+          <div className="join">
+            {[1, 2, 3, 4].map((page) => (
+              <input
+                key={page}
+                className={`join-item btn btn-square hover:bg-[#C9C7C5] ${
+                  currentPage === page ? "bg-[#C9C7C5]" : "bg-white"
+                }`}
+                type="button"
+                name="options"
+                aria-label={page}
+                value={page}
+                onClick={() => handlePageChange(page)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
